@@ -43,6 +43,7 @@ class ViewController: UIViewController {
         cardButtons = cardButtons.shuffled()
         flipCount = 0
         game.indexOfOneAndOnlyFaceUpCard = nil
+        
     }
     
     @IBOutlet weak var flipCountLable: UILabel!
