@@ -64,16 +64,16 @@ class ViewController: UIViewController {
             }
         }
     }
-    private var emoji = [Int: String]()
+    private var emoji = [Card: String]()
     
     private func emoji(for card: Card)->String{
-        if emoji[card.identifier] == nil {
+        if emoji[card] == nil {
             if emojiChoices.count > 0{
                 let randomIndex = emojiChoices.count.arc4random
-                emoji[card.identifier] = emojiChoices.remove(at: randomIndex)
+                emoji[card] = emojiChoices.remove(at: randomIndex)
             }
         }
-        return emoji[card.identifier] ?? "?"
+        return emoji[card] ?? "?"
     }
     
 }
