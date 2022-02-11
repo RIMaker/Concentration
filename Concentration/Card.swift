@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Card: Hashable, Equatable{
+struct Card: Hashable{
     func hash(into hasher: inout Hasher) {
         hasher.combine(identifier)
     }

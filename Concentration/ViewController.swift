@@ -15,10 +15,25 @@ class ViewController: UIViewController {
     private lazy var game = Concentration(numberOfPairsOfCards: numberOfPairsOfCards)
     private (set) var flipCount = 0{
         didSet{
-            flipCountLable.text = "Flips: \(flipCount)"
+            updateFlipCountLable()
         }
     }
-    private var emojiChoices = ["🎃","🐶","🐷","🦄","🎱","✈️"]
+    private func updateFlipCountLable(){
+        let attributes: [NSAttributedString.Key: Any] = [
+            .strokeWidth: 5.0,
+            .strokeColor: #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+        ]
+        let attributedString = NSAttributedString(string: "Flips: \(flipCount)", attributes: attributes)
+        flipCountLable.attributedText = attributedString
+    }
+    private let themeOfEmojis = [["🎃","👻","☠️","🤡","🧛🏻‍♂️","🕸"],
+                                 ["🐇","🐈","🦈","🦅","🐖","🐒"],
+                                 ["1️⃣","2️⃣","3️⃣","4️⃣","5️⃣","6️⃣"],
+                                 ["🇧🇪","🇨🇦","🇨🇮","🇱🇷","🇬🇧","🇦🇲"],
+                                 ["❤️","💚","💙","💜","🤍","💛"],
+                                 ["🍏","🍊","🍌","🍉","🥝","🍓"]]
+    
+    private var emojiChoices = ["🍏","🍊","🍌","🍉","🥝","🍓"]
     
     @IBOutlet private var cardButtons: [UIButton]!
     @IBAction private func touchCard(_ sender: UIButton) {
@@ -31,10 +46,9 @@ class ViewController: UIViewController {
         }
     }
     @IBAction private func restart1() {
+        emojiChoices.removeAll()
+        emojiChoices += themeOfEmojis[Int(arc4random_uniform(UInt32(4)))]
         if flipCount > 0{
-            emojiChoices.removeAll()
-            emojiChoices += ["🎃","🐶","🐷","🦄","🎱","✈️"]
-            //game.cards = game.cards.shuffled()
             for index in cardButtons.indices{
                 game.cards[index].isMatched = false
                 game.cards[index].isFaceUp = false
@@ -42,14 +56,21 @@ class ViewController: UIViewController {
                 button.setTitle("", for: UIControl.State.normal)
                 button.backgroundColor = #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
             }
+            
         }
+        emoji.removeAll()
+        updateViewFromModel()
         cardButtons = cardButtons.shuffled()
         flipCount = 0
         game.indexOfOneAndOnlyFaceUpCard = nil
         
     }
     
-    @IBOutlet private weak var flipCountLable: UILabel!
+    @IBOutlet private weak var flipCountLable: UILabel!{
+        didSet{
+            updateFlipCountLable()
+        }
+    }
     
     private func updateViewFromModel(){
         for index in cardButtons.indices{
