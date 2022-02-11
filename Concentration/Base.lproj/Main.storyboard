@@ -145,7 +145,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Fllips: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="0Sg-gb-27v">
-                                <rect key="frame" x="141.5" y="814" width="131" height="48"/>
+                                <rect key="frame" x="20" y="814" width="131" height="48"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" systemColor="systemOrangeColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ouH-oe-NTL">
+                                <rect key="frame" x="253" y="814" width="141" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" systemColor="systemOrangeColor"/>
                                 <nil key="highlightedColor"/>
@@ -157,14 +163,20 @@
                             <constraint firstItem="at5-P5-6Ma" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="18d-4S-l0B"/>
                             <constraint firstItem="at5-P5-6Ma" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="2No-J4-8PH"/>
                             <constraint firstItem="0Sg-gb-27v" firstAttribute="top" relation="lessThanOrEqual" secondItem="at5-P5-6Ma" secondAttribute="bottom" constant="300" id="55b-cQ-nrU"/>
+                            <constraint firstItem="ouH-oe-NTL" firstAttribute="top" relation="lessThanOrEqual" secondItem="at5-P5-6Ma" secondAttribute="bottom" constant="300" id="7Oy-Pj-C8p"/>
                             <constraint firstItem="0Sg-gb-27v" firstAttribute="top" secondItem="8fC-zG-2vP" secondAttribute="bottom" constant="50" id="Fm6-6x-hhD"/>
-                            <constraint firstItem="0Sg-gb-27v" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="S5o-9b-2gD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ouH-oe-NTL" secondAttribute="trailing" constant="20" id="Ikz-yT-KSe"/>
+                            <constraint firstItem="ouH-oe-NTL" firstAttribute="top" secondItem="8fC-zG-2vP" secondAttribute="bottom" constant="50" id="QbB-cS-CbY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ouH-oe-NTL" secondAttribute="bottom" id="WgN-qd-kf5"/>
                             <constraint firstItem="8fC-zG-2vP" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="dNL-8H-N0H"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="at5-P5-6Ma" secondAttribute="trailing" constant="20" id="foq-Ik-Aiv"/>
+                            <constraint firstItem="0Sg-gb-27v" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="h42-Tf-M34"/>
+                            <constraint firstItem="ouH-oe-NTL" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="0Sg-gb-27v" secondAttribute="trailing" constant="1" id="j5e-6A-kId"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="0Sg-gb-27v" secondAttribute="bottom" id="ywp-15-icd"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="ScoreLable" destination="ouH-oe-NTL" id="Hjx-du-JP4"/>
                         <outlet property="flipCountLable" destination="0Sg-gb-27v" id="AwB-4f-fM2"/>
                         <outletCollection property="cardButtons" destination="zES-uc-hQ7" collectionClass="NSMutableArray" id="7ry-yy-AbH"/>
                         <outletCollection property="cardButtons" destination="M2o-4W-HtI" collectionClass="NSMutableArray" id="x6B-9q-G0x"/>

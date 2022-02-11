@@ -18,6 +18,11 @@ class ViewController: UIViewController {
             updateFlipCountLable()
         }
     }
+    private (set) var Score = 0{
+        didSet{
+            updateScoreLable()
+        }
+    }
     private func updateFlipCountLable(){
         let attributes: [NSAttributedString.Key: Any] = [
             .strokeWidth: 5.0,
@@ -25,6 +30,14 @@ class ViewController: UIViewController {
         ]
         let attributedString = NSAttributedString(string: "Flips: \(flipCount)", attributes: attributes)
         flipCountLable.attributedText = attributedString
+    }
+    private func updateScoreLable(){
+        let attributes: [NSAttributedString.Key: Any] = [
+            .strokeWidth: 5.0,
+            .strokeColor: #colorLiteral(red: 1, green: 0.5763723254, blue: 0, alpha: 1)
+        ]
+        let attributedString = NSAttributedString(string: "Score: \(Score)", attributes: attributes)
+        ScoreLable.attributedText = attributedString
     }
     private let themeOfEmojis = [["🎃","👻","☠️","🤡","🧛🏻‍♂️","🕸"],
                                  ["🐇","🐈","🦈","🦅","🐖","🐒"],
@@ -39,7 +52,20 @@ class ViewController: UIViewController {
     @IBAction private func touchCard(_ sender: UIButton) {
         flipCount+=1;
         if let cardNumber = cardButtons.firstIndex(of: sender){
+            if (!game.cards[cardNumber].didFacedUp){
+                game.cards[cardNumber].didFacedUp = true
+            }else{
+                if (game.indexOfOneAndOnlyFaceUpCard != nil){
+                    if (game.cards[game.indexOfOneAndOnlyFaceUpCard!] != game.cards[cardNumber]){
+                        Score -= 1
+                    }
+                }
+            }
             game.chooseCard(at: cardNumber)
+            
+            if (game.cards[cardNumber].isMatched){
+                Score += 2
+            }
             updateViewFromModel()
         }else{
             print("choosen card was not in cardButtons")
@@ -47,9 +73,10 @@ class ViewController: UIViewController {
     }
     @IBAction private func restart1() {
         emojiChoices.removeAll()
-        emojiChoices += themeOfEmojis[Int(arc4random_uniform(UInt32(4)))]
+        emojiChoices += themeOfEmojis[Int(arc4random_uniform(UInt32(themeOfEmojis.count)))]
         if flipCount > 0{
             for index in cardButtons.indices{
+                game.cards[index].didFacedUp = false
                 game.cards[index].isMatched = false
                 game.cards[index].isFaceUp = false
                 let button = cardButtons[index]
@@ -61,11 +88,17 @@ class ViewController: UIViewController {
         emoji.removeAll()
         updateViewFromModel()
         cardButtons = cardButtons.shuffled()
+        Score = 0
         flipCount = 0
         game.indexOfOneAndOnlyFaceUpCard = nil
         
     }
     
+    @IBOutlet private weak var ScoreLable: UILabel!{
+        didSet{
+            updateScoreLable()
+        }
+    }
     @IBOutlet private weak var flipCountLable: UILabel!{
         didSet{
             updateFlipCountLable()
